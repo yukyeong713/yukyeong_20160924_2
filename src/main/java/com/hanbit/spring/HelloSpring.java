@@ -3,6 +3,9 @@ package com.hanbit.spring;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Log4jConfigurer;
+
+import com.hanbit.spring.core.service.ExampleService;
 
 @Component
 public class HelloSpring {
@@ -10,6 +13,10 @@ public class HelloSpring {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		
+		try{
+			
+			Log4jConfigurer.initLogging("classpath:config/log4j.xml");
 		//스프링은 스스로 의존성 설정을 함...?
 		//컨테이너를 만드는 부분
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext-core.xml");
@@ -36,12 +43,21 @@ public class HelloSpring {
 		
 		
 		
-		FirstBean springbean = applicationContext.getBean(FirstBean.class);
-		springbean.callSecond();
+//		FirstBean springbean = applicationContext.getBean(FirstBean.class);
+//		springbean.callSecond();
+//		
+//		
+//		FirstBean springbean2 = applicationContext.getBean(FirstBean.class);
+//		springbean2.callSecond();
 		
 		
-		FirstBean springbean2 = applicationContext.getBean(FirstBean.class);
-		springbean2.callSecond();
+		
+		ExampleService exampleService = applicationContext.getBean(ExampleService.class);
+		exampleService.addSomething("Spring");
+		}catch (Exception e) {
+			// TODO: handle exceptione.printStackTrace();
+		}
+		
 	}
 
 }
